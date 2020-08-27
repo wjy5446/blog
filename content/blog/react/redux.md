@@ -1,5 +1,5 @@
 ---
-title: 'What os redux? (1) Flux'
+title: 'What is redux? (1) Flux'
 date: 2020-8-27 16:21:13
 category: 'react'
 draft: false
