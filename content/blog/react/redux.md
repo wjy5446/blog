@@ -1,8 +1,63 @@
 ---
-title: 'Draft'
-date: 2019-1-3 16:21:13
-category: 'development'
+title: 'What os redux? (1) Flux'
+date: 2020-8-27 16:21:13
+category: 'react'
 draft: true
 ---
 
-Draft Post
+# What is redux ? (1) Flux
+
+```
+Redux에 대한 개념을 저의 나름의 언어로 정리한 글입니다.
+```
+
+## Flux 패턴
+
+### 1. 복잡한 MVC 패턴
+
+Redux에 대해서 설명하기에 앞써서 Flex 패턴에 대해서 설명해 보려고 한다. Redux의 형태는 완벽하지는 않지만 Flux 패턴을 따르고 있다. 그러니 먼저 Flux 패턴에 대해서 설명해 보려고 한다.
+
+우선 Flux 패턴은 기존의 MVC 패턴의 단점을 해결하기 위해서 나온 디자인 패턴이다. 기존의 MVC는 Controller를 통해서 데이터를 가지고 있는 Model을 조작하고, 조작된 Model은 UI인 View에 변화를 이르키고, 또한 유저는 View를 이용해 Model의 데이터를 조작한다. 이렇게 MVC 패턴에서는 `Model과 View 사이의 상호작용`을 통해서 어플리케이션의 데이터가 업데이트된다. 이런 방식은 작은 어플리케이션에서는 매우 편한 방식이지만 Facebook과 같이 거대한 어플리케이션 개발에서는 `매우 복잡한 상호 의존성`을 가지게 된다. 예를 들어 View A -> Model A -> Model B -> View B 이런 순으로 데이터가 연관되어 있다면, View가 변화할 때, Model A, Model B, View B가 모두 변화되는 단점을 가지고 있다.
+
+그래서 Flux 패턴에서는 오직 `단 방향으로 데이터가 흐를 수 있도록` 설계되었다. 이런 흐름을 통해서 개발자가 어떻게 변화가 되는 지 `예측이 쉽도록` 설계 되었다. 그럼 어떤 방식으로 설계가 되어 있는 지 알아 보도록 한다.
+
+### 2. 구성 요소
+
+Flux는 `Action -> Dispatch -> Store -> View -> Action` 의 단 방향으로 데이터가 흐르게 된다. 이를 통해서 개발자는 좀 더 쉽게 데이터 흐름을 예측할 수 있도록 도와준다. 그런 여기서 나오는 용어들은 매우 생소하다. 그렇기 때문에 각 구성요소가 무엇이고 어떤 역할을 하는 지 알아 보도록 한다.
+
+**Action Creator**
+
+Action creator는 Action을 생성하는 역할을 담당한다. 여기서 Action이란 데이터를 조작하게 하는 명령(?)이라고 볼 수 있다. 보통은 type(명령이름)과 payload(데이터 조작때 필요한 값)로 구성된 객체로 이루어진다. Action Creator가 Action을 생성하면 이를 Dispatcher에 넘기는 일을 수행한다.
+
+**Dispatcher**
+
+Dispatcher는 Action을 받아서 이를 Callback 함수를 통해 Store에 전달하는 역할을 한다. Dispatcher는 의존성을 가진 Store는 순서대로 callback을 수행하기 때문에 store관리를 좀더 편하게 할 수 있습니다. 또한 Dispatcher는 모든 Store에 Action을 전달하는 특징을 가지고 있습니다. 이는 Store가 자신에게 필요한 Action만 받도록 설계되어 있기 때문입니다.
+
+**Store**
+
+Store는 해당 데이터와 데이터 처리 방법을 가지고 있는 곳이다. 데이터는 객체형식으로 가지고 있으며, Dispatcher가 보낸 Action에 따라서 데이터 처리 하도록 설계되어 있다. 만약 Store에 등록되지 않은 Action이 전달되면 동작하지 않도록 설계되었다. Action에 의해 데이터 처리가 완료되면 변경 이벤트를 발생하여 이를 View로 전달하는 역할을 담당한다.
+
+**Controller view, View**
+
+View는 2가지 View가 존재한다. 하나는 데이터를 전달받는 Controller View와 UI를 담당하는 View다. Store에서 변경된 데이터를 Controller View에게 전달하고, Controller View는 자신이 받은 데이터를 일반 View에게 전달하는 역할을 한다.
+
+### 3. 동작 방법
+
+Flux의 동작 방법은 `준비 단계`와 `데이터 전달 단계` 이렇게 2단계로 이루어진다.
+
+**준비 단계**
+
+- Dispatcher와 Store 연결
+- Controller View와 View 최신 데이터 상태로 업로드
+- Controller View Store에 데이터 변경 이벤트 등록
+
+**데이터 전달 단계**
+
+- View -> Action Creator -> Dispatcher -> Store (상태 변경) -> Controller View -> View 순으로 진행
+
+## 참고 자료
+
+https://taegon.kim/archives/5288
+http://bestalign.github.io/2015/10/06/cartoon-guide-to-flux/
+https://blog.naver.com/backsajang420/221368106022
+https://12bme.tistory.com/180
