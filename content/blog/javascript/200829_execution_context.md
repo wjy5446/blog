@@ -1,5 +1,5 @@
 ---
-title: 'Execution Context'
+title: 'Execution Context은 무엇인가?'
 date: 2020-8-29 16:21:13
 category: 'javascript'
 draft: false
