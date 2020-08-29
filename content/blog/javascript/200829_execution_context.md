@@ -53,12 +53,14 @@ Create phase에서는 3단계를 통해서 Execution Context가 생성된다. �
 
 그 다음은 Variable Instantiation 작업이 이루어진다. 이는 변수, parameter, argument, function을 Variable Object에 추가하는 작업을 말한다. Variable Instantiation 내에서도 순서가 있다.
 
+```
 1. (Functional Execution Context)의 경우, {parameter: argument} 형태로 설정
 2. 함수 선언을 {함수명: 함수 객체} 형태로 설정
    - 이 때 함수객체는 [[Scope]] 프로퍼티를 가지는 데, 이는 Execution Context의 scope chain을 참조한다. 이때 함수는 [[Scope]]에 scope chain을 가지고 있기 때문에, Execution Context가 사라져도 scope chain 참조할 수 있다. 이를 `Closure`라고 부른다.
    - 여기서 함수가 실행되기 이전에 Variable Instantiation을 통해서 Variable Object는 함수를 가지고 있다. 그래서 함수 선언 이전에 함수를 호출할 수 있다. 이를 `Function Hoisting`이라 부른다.
 3. 변수 선언을 {변수명: undefined} 형태로 설정
    - 보통 변수는 Variable Object에 등록하는 선언 단계, undefined로 초기화하는 단계, 실제 값을 할당하는 단계 순서 이루어진다. Create Phase에서는 할당 단계전에 선언 단계와 초기화 단계를 동시화 이루어진다. 그렇기 때문에 할당을 하지 않아도 변수 접근이 가능하다. 이를 `Variable Hoisting`이라고 한다.
+```
 
 마지막으로 this value가 결정된다. 함수 호출되는 패턴에 의해서 this의 값이 결정된다.
 
