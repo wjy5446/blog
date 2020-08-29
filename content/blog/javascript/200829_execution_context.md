@@ -23,9 +23,11 @@ Execution Context의 종류 크게 3 가지가 존재한다. `Global Execution C
 
 Execution Context는 원래는 추상적인 개념이지만 물리적으로 객체형태로 주어진다. 이 객체는 3가지 프로퍼티를 가지고 있다. 구성은 아래와 같고 이를 하나하나 설명해 보려고 한다.
 
+```
 1. Variable object
 2. Scope chain
 3. thisValue
+```
 
 `Variable object`는 코드가 실행될 때 필요한 정보들을 가지고 있는 객체이다. 여기에 담기는 정보는 Global Execution Context와 Functional Execution Context가 다르다. Global Execution Context는 전역 변수와 전역 함수을 가지고 있고, Functional Execution Context는 paremeter, argument, 내부 함수와 지역 변수를 가지고 있는다.
 
@@ -41,9 +43,11 @@ Execution Context는 `Create phase`와 `Execute phase` 이렇게 2단계로 생�
 
 Create phase에서는 3단계를 통해서 Execution Context가 생성된다. 그 순서는 아래와 같다.
 
+```
 1. Scope Chain 생성과 초기화
 2. Variable Instantiation 실행
 3. this value 결정
+```
 
 초기에 현재 환경에 연관된 scope chain을 생성하고 초기화한다.
 
