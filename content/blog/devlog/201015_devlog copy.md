@@ -1,5 +1,5 @@
 ---
-title: '201011 Dev 로그'
+title: '201015 Dev 로그'
 date: 2020-10-15 16:21:13
 category: 'devlog'
 draft: false
